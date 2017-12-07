@@ -1,0 +1,5 @@
+ISBN:234565a-4|Lev Tolstoy|Voina and Mir|1
+ISBN:234sdc5a3|Hemingway|Starik and more|10
+ISBN:23345563|Lermontov|The Hero of nowadays|2
+ISBN:78435|Norbekov|Expirience of fool man|5
+ISBN:12345|Douglas Adams|Galaxy hitchhiking|4

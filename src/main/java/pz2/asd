@@ -1,0 +1,170 @@
+public class Markdown {
+
+  static boolean flag = false;
+  static boolean subflag = false;
+  static boolean subflagLink = false;
+  static String res = "";
+
+  public static void main(String[] args) {
+
+    String asd =
+
+      "##Header line\n" +
+        "\n" +
+        "Simple line with em\n" +
+        "\n" +
+        "Simple *line* with strong\n" +
+        "\n" +
+        "Line with link [Link to google](https://www.google.com) in center [ASD](http://asd.com)\n" +
+        "\n" +
+        "Line *with* many *elements* and link [Link to FB](https://www.facebook.com)";
+
+    Markdown.makeStringHeader(asd);
+
+    System.out.println(res);
+  }
+
+  StringBuffer sb = new StringBuffer();
+
+
+  public static String makeStringHtmlBody(String s) {
+    return "";
+
+  }
+
+  public static String makeStringHeader(String s) {
+
+    String timeS = "";
+    String str[] = s.split("\\n{1,}");
+
+    for(int i=0; i < str.length; i++) {
+
+      timeS = processHeaders(str[i]);
+      if(flag==true){ flag = false; res += timeS; continue;}
+
+      String tmp = "";
+
+      tmp = processStrong(str[i]);
+      //System.out.println("tmp:" + tmp);
+      tmp = processLink(tmp);
+
+      //tmp = processEmAsdZxc(tmp);
+
+      res += tmp;
+
+    }
+
+    res = "<html><body>" + res + "</body></html>";
+
+    return res;
+  }
+
+
+  public static String processHeaders(String s) {
+
+    String sd1 = "";
+
+    String[] ptrns = {
+      "(#{1,})([\\w \\d]{1,})"
+      // "([^#][\\w \\d]{1,})"
+    };
+
+    for (String ptrn : ptrns) {
+      Pattern p = Pattern.compile(ptrn);
+      Matcher m = p.matcher(s);
+
+      while (m.find()) {
+
+        try {
+          // System.out.println(m.group(1));
+          // System.out.println(m.group(2));
+
+
+          switch (m.group(1).length()) {
+            case 1:
+            sd1 = "<h1>" + m.group(2) + "</h1>";
+            break;
+            case 2:
+              sd1 = "<h2>" + m.group(2) + "</h2>";
+            break;
+            case 3:
+              sd1 = "<h3>" + m.group(2) + "</h3>";
+            break;
+            case 4:
+              sd1 = "<h4>" + m.group(2) + "</h4>";
+            break;
+            case 5:
+              sd1 = "<h5>" + m.group(2) + "</h5>";
+            break;
+            case 6:
+              sd1 = "<h6>" + m.group(2) + "</h6>";
+            break;
+          }
+        } catch (IndexOutOfBoundsException e) {
+        }
+
+        flag = true;
+      }
+
+    }
+
+    return sd1 + "\n";
+  }
+
+  public static String processStrong(String s) {
+
+    String r = "";
+    String tmp = "";
+    String str[] = s.split("\\s{1,}");
+
+
+    for (String item : str) {
+      tmp = subProcess(item);
+
+      if(subflag){
+        r += " " + tmp;
+        tmp = "";
+        subflag = false;
+        continue;
+      }
+
+      r += " " + item;
+    }
+
+    return r + "\n";
+  }
+
+  public static String subProcess(String s){
+
+    String r = "";
+
+    Pattern p = Pattern.compile("(\\*)([\\w]*)(\\*)");
+    Matcher m = p.matcher(s);
+
+    while (m.find()) {
+      r += "<strong>" + m.group(2) + "</strong>";
+      subflag = true;
+    }
+
+    return r;
+  }
+
+
+
+
+  public static String processLink(String s){
+
+
+    String r = "";
+    //if(true)return s;
+    Pattern p = Pattern.compile("\\[(?<title>[\\w \\d\\.]*)\\]\\((?<link>http(s{0,}):\\/\\/[\\w\\.\\d]*)\\)");
+    String replacePattern="<a href=\"${link}\">${title}</a> ";
+    Matcher m = p.matcher(s);
+
+    if (m.find())
+      s = m.replaceAll(replacePattern);
+
+
+    return s;
+  }
+}

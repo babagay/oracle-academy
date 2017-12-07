@@ -1,0 +1,4 @@
+Vasya = 91
+Peet = 99
+Geek = 95
+Fill = 92

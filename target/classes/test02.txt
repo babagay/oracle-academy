@@ -1,0 +1,8 @@
+Vasya = 91
+Misha = 90
+Jack = 10
+Peet = 99
+Keet Dfgjuy = 85
+Geek = 95
+Fill = 92
+Kate = 80

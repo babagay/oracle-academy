@@ -1,0 +1,4 @@
+Vasya|vasya_login|12345Op_d|10.05.1979
+Petya|petya_login|dfg45Op_d|03.01.1980
+Vovan|vavas_login|fdv12945Op_d|04.12.1990
+Leonid|Leon|L_007|11.04.1975
